@@ -10,6 +10,8 @@ public class BackgroundDirector : BaseBehavior
 	
 	public Transform Background;
 	
+	public float Width;
+	
 	void Start()
 	{
 		_player = GameObject.Find("Player");
@@ -27,7 +29,7 @@ public class BackgroundDirector : BaseBehavior
 		{
 			var background = (Transform)Instantiate(Background, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			
-			_lastX += 10.23F;
+			_lastX += Width;
             
 			background.parent = transform;
 		}
@@ -36,7 +38,7 @@ public class BackgroundDirector : BaseBehavior
 		{
 			var background = (Transform)Instantiate(Background, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			
-			_lastX += 10.23F;
+			_lastX += Width;
 			
 			background.parent = transform;
 		}

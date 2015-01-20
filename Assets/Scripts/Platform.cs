@@ -20,15 +20,6 @@ public class Platform : BaseBehavior
     	
 		if (!_passed && _player.transform.position.x >= transform.position.x)
 		{
-    		_player.ObstaclesPassed++;
-    		_passed = true;
-    		
-    		audio.Play();
 		}
-		
-        if (IsBelowTheFoldX())
-        {
-            Destroy(gameObject);
-        }
     }
 }

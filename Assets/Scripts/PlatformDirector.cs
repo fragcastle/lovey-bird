@@ -7,11 +7,14 @@ public class PlatformDirector : BaseBehavior
 
     private float _lastX = 2;
     private float _distanceToGenerate = 5;
+    
+	private bool _generateMailbox = false;
 	
 	public Transform Platform;
     public Transform BrokenPlatform;
-    public Transform BouncyPlatform;
-    public Transform DeadPlatform;
+	public Transform BouncyPlatform;
+	public Transform DeadPlatform;
+	public Transform Mailbox;
 
     public float PlatformRangeMin = 0.25F;
     public float PlatformRange = 0.35F;
@@ -43,30 +46,37 @@ public class PlatformDirector : BaseBehavior
 
             platform.parent = transform;
         }
-
+		
+		
+		
 		while (_lastX < playerPosition.x + _distanceToGenerate)
         {
 			_lastX += PlatformRangeMin + (PlatformRange * Random.value);
 
             var screenHeight = ScreenHeight() - 4;
-			var yPosition = (screenHeight * Random.value) - (screenHeight / 2);
 
-			Transform platform;
+			Transform newObject;
 			
-			if (Random.value < ChanceForBrokenPlatform)
+			if (_generateMailbox)
 			{
-				platform = (Transform)Instantiate(BrokenPlatform, new Vector3(_lastX, yPosition, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(Mailbox, new Vector3(_lastX, -2.15F, transform.position.z), Quaternion.identity);
+			}
+			else if (Random.value < ChanceForBrokenPlatform)
+			{
+				newObject = (Transform)Instantiate(BrokenPlatform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
 			else if (Random.value < ChanceForBouncyPlatform)
 			{
-				platform = (Transform)Instantiate(BouncyPlatform, new Vector3(_lastX, yPosition, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(BouncyPlatform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
 			else
 			{
-				platform = (Transform)Instantiate(Platform, new Vector3(_lastX, yPosition, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(Platform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
 
-			platform.parent = transform;
+			newObject.parent = transform;
+			
+			_generateMailbox = !_generateMailbox;
         }
     }
 }
