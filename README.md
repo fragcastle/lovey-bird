@@ -1,4 +1,4 @@
-SLovey Bird!
+Lovey Bird!
 =========
 
 Soon to be available on the iOS App Store!
