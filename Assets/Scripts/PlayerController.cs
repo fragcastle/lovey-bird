@@ -11,7 +11,6 @@ public class PlayerController : BaseBehavior
 	
 	public int ObstaclesPassed = 0;
 	public float JumpSpeed = 3.5F;
-	public AudioSource JumpSound;
 	
 	public PlayerType PlayerType
 	{

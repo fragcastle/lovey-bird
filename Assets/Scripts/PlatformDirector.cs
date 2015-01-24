@@ -6,14 +6,13 @@ public class PlatformDirector : BaseBehavior
     private GameObject _player;
 
     private float _lastX = 2;
-    private float _distanceToGenerate = 5;
+    private float _distanceToGenerate = 10;
     
 	private bool _generateMailbox = false;
 	
-	public Transform Platform;
-    public Transform BrokenPlatform;
-	public Transform BouncyPlatform;
-	public Transform DeadPlatform;
+	public Transform HouseSmall;
+	public Transform HouseMedium;
+	public Transform HouseLarge;
 	public Transform Mailbox;
 
     public float PlatformRangeMin = 0.25F;
@@ -42,7 +41,7 @@ public class PlatformDirector : BaseBehavior
         // Generate the first platform in the center of screen
 		if (_lastX == 0)
         {
-			var platform = (Transform)Instantiate(Platform, new Vector3(transform.position.x, _lastX, transform.position.z), Quaternion.identity);
+			var platform = (Transform)Instantiate(HouseSmall, new Vector3(transform.position.x, _lastX, transform.position.z), Quaternion.identity);
 
             platform.parent = transform;
         }
@@ -53,25 +52,25 @@ public class PlatformDirector : BaseBehavior
         {
 			_lastX += PlatformRangeMin + (PlatformRange * Random.value);
 
-            var screenHeight = ScreenHeight() - 4;
+			var random = Random.value;
 
 			Transform newObject;
 			
 			if (_generateMailbox)
 			{
-				newObject = (Transform)Instantiate(Mailbox, new Vector3(_lastX, -2.15F, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(Mailbox, new Vector3(_lastX, -2.3F, transform.position.z), Quaternion.identity);
 			}
-			else if (Random.value < ChanceForBrokenPlatform)
+			else if (random > 0.66)
 			{
-				newObject = (Transform)Instantiate(BrokenPlatform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(HouseSmall, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
-			else if (Random.value < ChanceForBouncyPlatform)
+			else if (random > 0.33)
 			{
-				newObject = (Transform)Instantiate(BouncyPlatform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(HouseMedium, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
-			else
+			else 
 			{
-				newObject = (Transform)Instantiate(Platform, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
+				newObject = (Transform)Instantiate(HouseLarge, new Vector3(_lastX, transform.position.y, transform.position.z), Quaternion.identity);
 			}
 
 			newObject.parent = transform;

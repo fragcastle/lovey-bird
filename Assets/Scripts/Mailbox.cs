@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Mailbox : MonoBehaviour
 {
+	public Sprite HasMail;
+	
 	void Start ()
 	{
 		
@@ -21,6 +23,10 @@ public class Mailbox : MonoBehaviour
 		
 		audio.Play();
 		
-		Destroy(gameObject);
+		GetComponent<SpriteRenderer>().sprite = HasMail;
+		
+		GetComponentInChildren<ParticleSystem>().Play();
+		
+		collider2D.enabled = false;
 	}
 }

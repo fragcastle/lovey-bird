@@ -6,7 +6,7 @@ public class DecorationDirector : BaseBehavior
     private GameObject _player;
 
 	private float _lastX = 0;
-    private float _distanceToGenerate = 5;
+    private float _distanceToGenerate = 10;
 
     public Transform Decoration;
 
