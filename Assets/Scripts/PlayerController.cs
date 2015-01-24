@@ -11,6 +11,9 @@ public class PlayerController : BaseBehavior
 	
 	public int ObstaclesPassed = 0;
 	public float JumpSpeed = 3.5F;
+
+    private int RPM = 90;
+    public bool IsDead = false;
 	
 	public PlayerType PlayerType
 	{
@@ -31,27 +34,50 @@ public class PlayerController : BaseBehavior
 
     void Update()
 	{
-		if (IsMobile() && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
-		{
-			rigidbody2D.velocity = Vector2.up * JumpSpeed;
-			
-			audio.Play();
-		}
-		else if (Input.GetButtonDown("Jump"))
-		{
-			rigidbody2D.velocity = Vector2.up * JumpSpeed;
-			
-			audio.Play();
+        if (!IsDead)
+        {
+            if (IsMobile() && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+            {
+                rigidbody2D.velocity = Vector2.up * JumpSpeed;
+
+                audio.Play();
+            }
+            else if (Input.GetButtonDown("Jump"))
+            {
+                rigidbody2D.velocity = Vector2.up * JumpSpeed;
+
+                audio.Play();
+            }
+
+            transform.Translate(Vector2.right * Time.deltaTime);
+
+            _particleSystem.enableEmission = rigidbody2D.velocity.y > 0;
         }
-        
-        transform.Translate(Vector2.right * Time.deltaTime);
-        
-        _particleSystem.enableEmission = rigidbody2D.velocity.y > 0;
+        else
+        {
+            // rotate the bird
+            transform.Rotate(0, 0, RPM * Time.deltaTime, Space.Self);
+
+            // bring the bird into the foreground
+            transform.position = new Vector3(transform.position.x, transform.position.y, -5);
+            
+            transform.localScale = transform.localScale + Vector3.one * Time.deltaTime * 1.1F;
+        }
     }
     
     public void OnDeath()
     {
 		AddHighScore(ObstaclesPassed);
+
+        IsDead = true;
+        rigidbody2D.velocity = Vector2.up * JumpSpeed * 2;
+		rigidbody2D.gravityScale = 2;
+		
+		collider2D.enabled = false;
+		
+        var foldDeath = gameObject.AddComponent<DieWhenBelowTheFold>();
+        
+		foldDeath.Buffer = 2;
     }
 
 	private void AddHighScore(int score)

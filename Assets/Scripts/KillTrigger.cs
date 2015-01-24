@@ -17,11 +17,9 @@ public class KillTrigger : MonoBehaviour
 	{
 		var playerController = collision2D.GetComponent<PlayerController>();
 		
-		if (playerController != null)
+		if (playerController != null && !playerController.IsDead)
 			playerController.OnDeath();
 			
-		Destroy(collision2D.gameObject);
-		
 		if (PlatformDirector.Current)
 			PlatformDirector.Current.audio.Play();
 	}
