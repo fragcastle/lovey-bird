@@ -95,5 +95,16 @@ public class PlayerController : BaseBehavior
 		}
 		
 		PlayerPrefs.SetInt(Constants.HighScoreKey, score);
+		
+		var totalLettersDelivered = score;
+		
+		if (PlayerPrefs.HasKey(Constants.TotalLettersDeliveredKey))
+		{
+			var oldTotalScore = PlayerPrefs.GetInt(Constants.TotalLettersDeliveredKey);
+			
+			totalLettersDelivered += oldTotalScore;
+		}
+		
+		PlayerPrefs.SetInt(Constants.TotalLettersDeliveredKey, totalLettersDelivered);
 	}
 }
