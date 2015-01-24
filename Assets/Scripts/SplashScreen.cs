@@ -10,7 +10,10 @@ public class SplashScreen : MonoBehaviour
 	
 	void Update ()
 	{
-	
+		if (Input.touchCount > 0)
+		{
+			Application.LoadLevel("start");
+		}
 	}
 	
 	IEnumerator StartGame()
