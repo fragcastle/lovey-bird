@@ -28,5 +28,9 @@ public class Mailbox : MonoBehaviour
 		GetComponentInChildren<ParticleSystem>().Play();
 		
 		collider2D.enabled = false;
+
+        // hide the arrow anim
+        var arrow = transform.GetComponentInChildren<BounceMailboxArrow>();
+        arrow.gameObject.active = false;
 	}
 }
