@@ -60,6 +60,8 @@ public class PlayerController : BaseBehavior
 
             // bring the bird into the foreground
             transform.position = new Vector3(transform.position.x, transform.position.y, -5);
+            
+            transform.localScale = transform.localScale + Vector3.one * Time.deltaTime * 1.1F;
         }
     }
     
@@ -69,8 +71,13 @@ public class PlayerController : BaseBehavior
 
         IsDead = true;
         rigidbody2D.velocity = Vector2.up * JumpSpeed * 2;
-
+		rigidbody2D.gravityScale = 2;
+		
+		collider2D.enabled = false;
+		
         var foldDeath = gameObject.AddComponent<DieWhenBelowTheFold>();
+        
+		foldDeath.Buffer = 2;
     }
 
 	private void AddHighScore(int score)
