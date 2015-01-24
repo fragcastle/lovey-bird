@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementDistance: .449999988
-  MovementSpeed: 1.75
+  MovementTime: .400000006
 --- !u!114 &11441166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1324,9 +1324,9 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300192, guid: b2c485cd5d81389408b92483f61dbdf4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: .647058845, b: .911764741, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
